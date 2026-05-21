@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a0a0f;
+    perspective: 1000px;
+}
+
+.hologram-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 0, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255, 255, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 150, 255, 0.05) 0%, transparent 70%);
+    background-size: 200% 200%;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    animation: bg-drift 8s ease-in-out infinite;
+}
+
+@keyframes bg-drift {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 30%; }
+    50% { background-position: 50% 100%; }
+    75% { background-position: 0% 70%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hologram-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.015) 2px,
+            rgba(255, 255, 255, 0.015) 4px
+        );
+    pointer-events: none;
+    animation: scan-vert 3s linear infinite;
+}
+
+@keyframes scan-vert {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+.hologram-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.01) 2px,
+            rgba(255, 255, 255, 0.01) 4px
+        );
+    pointer-events: none;
+    animation: scan-horiz 4s linear infinite;
+}
+
+@keyframes scan-horiz {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(4px); }
+}
+
+.shine {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 50%
+    );
+    transition: background 0.1s ease-out;
+    animation: pulse-opacity 4s ease-in-out infinite;
+}
+
+@keyframes pulse-opacity {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 255, 255, 0.03) 3px,
+        rgba(0, 255, 255, 0.03) 4px
+    );
+    animation: flicker 0.1s steps(2) infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+#particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(0, 255, 255, 0.5);
+    box-shadow:
+        0 0 6px rgba(0, 255, 255, 0.3),
+        0 0 12px rgba(0, 255, 255, 0.1);
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(-10vh) translateX(100px) scale(1);
+        opacity: 0;
+    }
+}
+
+.warp {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.15;
+    animation: warp-spin 20s linear infinite;
+}
+
+@keyframes warp-spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.title {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: transparent;
+    background: linear-gradient(
+        135deg,
+        #00ffff,
+        #ff00ff,
+        #ffff00,
+        #00ffff,
+        #ff00ff
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: hologram-shift 4s ease infinite;
+    text-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 40px rgba(255, 0, 255, 0.2),
+        0 0 80px rgba(0, 255, 255, 0.1);
+    margin-bottom: 2rem;
+    transform: translateZ(30px);
+}
+
+@keyframes hologram-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.enter-btn {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 1rem 3.5rem;
+    border: 2px solid rgba(0, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    color: #00ffff;
+    cursor: pointer;
+    border-radius: 50px;
+    backdrop-filter: blur(4px);
+    box-shadow:
+        0 0 15px rgba(0, 255, 255, 0.2),
+        inset 0 0 15px rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    transform: translateZ(20px);
+}
+
+.enter-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: #00ffff;
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.4),
+        inset 0 0 30px rgba(0, 255, 255, 0.2),
+        0 0 60px rgba(255, 0, 255, 0.2);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.enter-btn:active {
+    transform: translateZ(10px) scale(0.97);
+}
