@@ -297,3 +297,73 @@ body {
 .enter-btn:active {
   transform: translateZ(10px) scale(0.97);
 }
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 2.8rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .enter-btn {
+    font-size: 1.1rem;
+    padding: 0.8rem 2.5rem;
+    letter-spacing: 0.2em;
+  }
+
+  #particles .particle {
+    display: none;
+  }
+
+  .warp {
+    opacity: 0.08;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.2rem;
+    text-shadow:
+      0 0 10px rgba(0, 255, 255, 0.3),
+      0 0 20px rgba(255, 0, 255, 0.2);
+  }
+
+  .enter-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem 2rem;
+    letter-spacing: 0.15em;
+  }
+
+  .hologram-bg {
+    animation-duration: 12s;
+  }
+
+  .shine {
+    animation-duration: 6s;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .title {
+    font-size: 3.5rem;
+  }
+
+  .enter-btn {
+    font-size: 1.2rem;
+    padding: 0.9rem 3rem;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  .title {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .enter-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.8rem;
+  }
+}
